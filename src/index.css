@@ -1,13 +1,17 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body ::-webkit-scrollbar {
+  display: none
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root {
+  --button-font: proxima;
+  --toastify-color-success: linear-gradient(180deg, #2ae4ac 0%, #37c978 100%);
+  --toastify-color-error: linear-gradient(90deg, #ff5a5a 0%, #ff4343 100%);
+  --toastify-toast-width: 288px;
+  --toastify-toast-min-height: 42px;
+  --toastify-toast-padding: 64px;
+  --toastify-toast-border-radius: 4px;
 }
