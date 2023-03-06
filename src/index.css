@@ -7,7 +7,6 @@ body ::-webkit-scrollbar {
 }
 
 :root {
-  --button-font: proxima;
   --toastify-color-success: linear-gradient(180deg, #2ae4ac 0%, #37c978 100%);
   --toastify-color-error: linear-gradient(90deg, #ff5a5a 0%, #ff4343 100%);
   --toastify-toast-width: 288px;

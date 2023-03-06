@@ -1,9 +1,8 @@
 import React from 'react';
-
 function App() {
   return (
     <div>
-    <div className='text-red-800'>Hello</div>
+    <h1 className='text-red-800'>Hello</h1>
     </div>
   );
 }
