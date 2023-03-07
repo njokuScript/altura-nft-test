@@ -1,19 +1,21 @@
 import React from 'react';
+import classNames from 'classnames';
 interface IProps {
+  className?: string;
   buttonText?: string;
   onClick?: () => void;
 }
 
-const Button = ({ buttonText, onClick }: IProps) => {
+const Button = ({ className, buttonText, onClick }: IProps) => {
   return (
-    <>
+    <div className={classNames(className)}>
       <button
         onClick={onClick}
         type='button'
-        className='rounded bg- bg-primaryButton py-1 px-10 w-full text-xs font-semibold text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+        className='rounded-xl bg-primaryButton py-4 px-24  text-sm font-mono font-semibold text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
         {buttonText}
       </button>
-    </>
+    </div>
   );
 };
 
