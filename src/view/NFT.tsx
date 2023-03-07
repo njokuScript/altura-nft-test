@@ -2,8 +2,11 @@ import React from 'react';
 import Cards from '../components/Cards';
 import DummyNft from '../assets/images/DummyNFT.png';
 import Search from '../components/Search';
+import Modal from '../components/Modal';
 
 const NFT = () => {
+  // open modal
+
   return (
     <div className=' bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
       <div className=' p-6'>
@@ -41,6 +44,9 @@ const NFT = () => {
           amount='0.1 BNB'
         />
       </div>
+      {/* <Modal onClose={}>
+
+      </Modal> */}
     </div>
   );
 };

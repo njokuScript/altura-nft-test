@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IProps {
-  children?: React.ReactChild;
+  onclick?: () => void;
   image?: string;
   collectionName?: string;
   nftName?: string;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const Cards = ({
-  children,
+  onclick,
   image,
   collectionName,
   nftName,
@@ -18,7 +18,9 @@ const Cards = ({
   amount,
 }: IProps) => {
   return (
-    <div className='m-4 bg-primaryWhite rounded-md border-2 border-gray-400 '>
+    <div
+      onClick={onclick}
+      className='m-4 bg-primaryWhite rounded-md border-2 border-gray-400 '>
       <img src={image} alt='Image1' className='h-48 w-auto rounded-t-md p-2' />
       <div className='p-4'>
         <div className='font-mono font-bold text-white text-sm'>

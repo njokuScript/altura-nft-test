@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import classNames from 'classnames';
 import { createPortal } from 'react-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 const Modal = React.forwardRef(
   (
     { isOpen, onClose, children, classname, closeOnOutsideClick }: IProps,
-    ref
+    ref: any
   ) => {
     /** Allow modal to be dismissed with Esc key */
     const handleKeyEvent = (e: KeyboardEvent) => {
@@ -48,7 +48,16 @@ const Modal = React.forwardRef(
     }, []);
     return createPortal(
       <AnimatePresence>
-        <div>Modal</div>
+        {isOpen && (
+          <div className={classname} ref={ref}>
+            {/** Mobile modal */}
+            <section className='fixed top-0 bottom-0 left-0 right-0 z-50 pb-5 bg-white md:hidden'>
+              <div className='w-full h-screen pt-4 mt-10 overflow-x-hidden overflow-y-auto'>
+                {children}
+              </div>
+            </section>
+          </div>
+        )}
       </AnimatePresence>,
       modalRoot
     );
