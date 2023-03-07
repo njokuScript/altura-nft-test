@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export const truncateAddress = (value: string, strLen = 8) => {
   if (value.length <= strLen) {
     return value;
@@ -23,3 +25,11 @@ export const attachLoader =
       })
       .finally(() => setter(setLoadingTo(false)));
   };
+
+export const handleError = (
+  err: any,
+  defaultMessage = 'Something went wrong!'
+) => {
+  const message = err?.response || defaultMessage;
+  toast.error(message);
+};
