@@ -14,3 +14,22 @@ body ::-webkit-scrollbar {
   --toastify-toast-padding: 64px;
   --toastify-toast-border-radius: 4px;
 }
+.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s ease-out;
+}
+
+.modal:target {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0s, opacity 0.3s ease-in;
+}
+
+.modal:target ~ #root > * {
+  filter: blur(2px);
+}

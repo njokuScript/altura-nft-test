@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import classNames from 'classnames';
 import { createPortal } from 'react-dom';
 import { AnimatePresence } from 'framer-motion';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface IProps {
   isOpen?: boolean;
@@ -49,14 +50,27 @@ const Modal = React.forwardRef(
     return createPortal(
       <AnimatePresence>
         {isOpen && (
-          <div className={classname} ref={ref}>
-            {/** Mobile modal */}
-            <section className='fixed top-0 bottom-0 left-0 right-0 z-50 pb-5 bg-white md:hidden'>
-              <div className='w-full h-screen pt-4 mt-10 overflow-x-hidden overflow-y-auto'>
-                {children}
-              </div>
-            </section>
-          </div>
+          <>
+            <div className='fixed inset-0 bg-white bg-opacity-70 transition-opacity' />
+
+            <div className={classname} ref={ref}>
+              {/** Mobile modal */}
+              <section className='flex justify-center fixed top-0 bottom-0 left-0 right-0 z-50 md:hidden bg-primary m-4 shadow-xl rounded-lg transform transition-all'>
+                <div className='absolute top-0 right-0 pt-4 pr-4 sm:block'>
+                  <button
+                    type='button'
+                    className='rounded-md bg-primary text-white hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                    onClick={onClose}>
+                    <span className='sr-only'>Close</span>
+                    <XMarkIcon className='h-6 w-6' aria-hidden='true' />
+                  </button>
+                </div>
+                <div className='w-full overflow-x-hidden overflow-y-auto '>
+                  {children}
+                </div>
+              </section>
+            </div>
+          </>
         )}
       </AnimatePresence>,
       modalRoot
