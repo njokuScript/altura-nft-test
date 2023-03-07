@@ -33,3 +33,7 @@ body ::-webkit-scrollbar {
 .modal:target ~ #root > * {
   filter: blur(2px);
 }
+
+.textShadow {
+  text-shadow: 0 0 5px #1a1a1a;
+}

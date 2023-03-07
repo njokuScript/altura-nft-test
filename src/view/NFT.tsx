@@ -1,6 +1,7 @@
 import React from 'react';
 import Cards from '../components/Cards';
 import DummyNft from '../assets/images/DummyNFT.png';
+import DummyNft2 from '../assets/images/DummyNft2.png';
 import Logo from '../assets/images/logo.png';
 import Bscscan from '../assets/images/bscscan.png';
 import Metadata from '../assets/images/metadata.png';
@@ -29,39 +30,39 @@ const NFT = () => {
 
   return (
     <div className=' bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
-      <div className=' p-6'>
-        <div className='font-mono font-bold text-white'>
-          More from the Hatchable Collection - Sumarai
+      <div className='p-8 lg:py-6 lg:px-16'>
+        <div className='font-mono font-bold text-white pt-10 text-xl'>
+          Featured Collections - The Return of Sumarai
         </div>
       </div>
-      <div className='grid grid-cols-2 gap-1 sm:grid-cols-2 lg:grid-cols-3 h-auto'>
+      <div className='grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6 h-auto p-8 lg:py-6 lg:px-16'>
         <Cards
           onclick={toggleModal}
-          image={DummyNft}
-          collectionName='Njoku'
-          rarity='Super Rare'
-          nftName='Eluuu p'
+          collectionImage={Logo}
+          image={DummyNft2}
+          collectionName='The Hatchable'
+          nftName='Altura Fox - Legendary'
           amount='0.1 BNB'
         />
         <Cards
           image={DummyNft}
-          collectionName='Njoku'
-          rarity='Super Rare'
-          nftName='Eluuu p'
+          collectionName='The Hatchable'
+          collectionImage={Logo}
+          nftName='Altura Fox - Legendary'
           amount='0.1 BNB'
         />
         <Cards
           image={DummyNft}
-          collectionName='Njoku'
-          rarity='Super Rare'
-          nftName='Eluuu p'
+          collectionName='The Hatchable'
+          collectionImage={Logo}
+          nftName='Altura Fox - Legendary'
           amount='0.1 ETH'
         />
         <Cards
           image={DummyNft}
-          collectionName='Njoku'
-          rarity='Super Rare'
-          nftName='Eluuu p'
+          collectionImage={Logo}
+          collectionName=' The Hatchable'
+          nftName='Altura Fox - Legendary'
           amount='0.1 BNB'
         />
       </div>
