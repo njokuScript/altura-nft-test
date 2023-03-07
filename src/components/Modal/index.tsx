@@ -2,15 +2,39 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
 import { createPortal } from 'react-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+
+export const ModalVariant = {
+  hidden: {
+    opacity: 0,
+    transform: 'scale(0.5)',
+    transition: {
+      duration: 0.2,
+    },
+  },
+  visible: {
+    opacity: 1,
+    transform: 'scale(1)',
+    transition: {
+      duration: 0.3,
+      delayChildren: 0.5,
+      ease: 'easeOut',
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+    },
+  },
+};
 
 interface IProps {
   isOpen?: boolean;
   onClose: () => void;
   children: React.ReactNode;
   classname?: string;
-  closeOnOutsideClick?: boolean;
 }
 /** Creates a portal exclusively for Modals - https://reactjs.org/docs/portals.html */
 const modalRoot = document.getElementById('portal') as
@@ -18,7 +42,7 @@ const modalRoot = document.getElementById('portal') as
   | DocumentFragment;
 
 const Wrapper = styled.div`
-  min-height: 30vh;
+  min-height: 50vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -33,10 +57,7 @@ const Wrapper = styled.div`
 `;
 
 const Modal = React.forwardRef(
-  (
-    { isOpen, onClose, children, classname, closeOnOutsideClick }: IProps,
-    ref: any
-  ) => {
+  ({ isOpen, onClose, children, classname }: IProps, ref: any) => {
     /** Allow modal to be dismissed with Esc key */
     const handleKeyEvent = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -69,6 +90,28 @@ const Modal = React.forwardRef(
                   {children}
                 </div>
               </section>
+              {/** Desktop modal */}
+              <motion.div
+                exit='hidden'
+                initial='hidden'
+                animate='visible'
+                variants={ModalVariant}
+                className='hidden fixed top-0 bottom-0 left-0 right-0 z-50 md:flex items-center justify-center h-screen body'>
+                <Wrapper className='hidden md:block md:m-24 bg-primary max-w-5xl'>
+                  <div className='absolute top-0 right-0 pt-4 pr-4 sm:block'>
+                    <button
+                      type='button'
+                      className='rounded-md bg-primary text-white hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                      onClick={onClose}>
+                      <span className='sr-only'>Close</span>
+                      <XMarkIcon className='h-6 w-6' aria-hidden='true' />
+                    </button>
+                  </div>
+                  <div className='overflow-x-hidden overflow-y-auto '>
+                    {children}
+                  </div>
+                </Wrapper>
+              </motion.div>
             </div>
           </>
         )}
