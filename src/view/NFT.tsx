@@ -2,9 +2,11 @@ import React from 'react';
 import Cards from '../components/Cards';
 import DummyNft from '../assets/images/DummyNFT.png';
 import Logo from '../assets/images/logo.png';
-import Bscscan from '../assets/images/Bscscan.svg';
+import Bscscan from '../assets/images/bscscan.png';
+import Metadata from '../assets/images/metadata.png';
 import Modal from '../components/Modal';
 import { truncateAddress } from '../libs/utils';
+import Button from '../components/Button';
 
 const detailsData = [
   {
@@ -14,13 +16,8 @@ const detailsData = [
   },
   {
     id: 2,
-    title: 'Collection',
-    image: Logo,
-  },
-  {
-    id: 3,
-    title: 'Collection',
-    image: Logo,
+    desc: 'View metadata',
+    image: Metadata,
   },
 ];
 
@@ -75,8 +72,13 @@ const NFT = () => {
             alt='Image1'
             className='w-full object-cover h-56'
           />
-          <div className='font-mono font-bold text-white mt-2 pl-5 pt-2'>
-            Altura Fox - Legendary
+          <div className='flex justify-between items-center'>
+            <div className='font-mono font-bold text-white mt-2 pl-5 pt-2'>
+              Altura Fox - Legendary
+            </div>
+            <div className='font-mono text-xs font-semibold text-orange-200 mt-2 pt-2 pr-5'>
+              100 BUSD
+            </div>
           </div>
           <div className='p-5'>
             <div className='flex mt-6 items-center'>
@@ -108,13 +110,31 @@ const NFT = () => {
             {detailsData.map(item => {
               return (
                 <div className='flex mt-4 items-center'>
-                  {item.image}
+                  <img src={item.image} alt='Bsc scan logo' />
                   <div className='font-mono text-xs text-gray-500 pl-2'>
                     {item.desc}
                   </div>
                 </div>
               );
             })}
+          </div>
+          <div className='flex items-center '>
+            <div className='font-mono font-semibold text-sm text-white p-5'>
+              Owner
+            </div>
+            <div className='flex items-center rounded-xl p-2 bg-primary shadow-2xl shadow-primaryWhite'>
+              <div className='bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-full h-8 w-8'></div>
+              <div className='pl-3 text-orange-200 font-mono text-xs'>
+                {truncateAddress('0x1234567890123456789012345678901234567890')}
+              </div>
+            </div>
+          </div>
+          <div>
+            <Button
+              route='/'
+              className='justify-center flex mt-8'
+              buttonText='Purchase NFT'
+            />
           </div>
         </div>
       </Modal>
