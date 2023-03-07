@@ -1,5 +1,4 @@
 import React from 'react';
-import { truncateAddress } from '../../libs/utils';
 
 interface IProps {
   onclick?: () => void;
