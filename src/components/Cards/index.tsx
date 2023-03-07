@@ -18,16 +18,13 @@ const Cards = ({
   amount,
 }: IProps) => {
   return (
-    <div className='m-4 bg-primaryWhite rounded-md border-2 border-gray-400 w-2/5'>
-      <img src={image} alt='Image1' className='w-40 h-48 rounded-t-md p-2' />
-
-      <div className=''>
+    <div className='m-4 bg-primaryWhite rounded-md border-2 border-gray-400 '>
+      <img src={image} alt='Image1' className='h-48 w-auto rounded-t-md p-2' />
+      <div className='p-4'>
         <div className='font-mono font-bold text-white text-sm'>
           {collectionName} - {rarity}
-          <br />
-          {nftName}
-          <br />
-          {amount}
+          <div className='text-gray-400 pt-1'>{nftName}</div>
+          <div className='text-xs pt-4'>{amount}</div>
         </div>
       </div>
     </div>

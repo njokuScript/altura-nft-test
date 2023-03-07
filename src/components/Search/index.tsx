@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Search = () => {
-  // Use state to keep track of whether the search bar is visible
-  const [showSearchBar, setShowSearchBar] = useState(false);
-
-  // Define a function to toggle the search bar's visibility
-  function toggleSearchBar() {
-    setShowSearchBar(!showSearchBar);
-  }
   return (
-    <div className='relative flex rounded-md bg-primaryWhite'>
+    <div className='relative flex rounded-md bg-red-400 p-6 justify-center'>
       <div className='absolute inset-y-0 left-0 flex items-center pl-3 border-primaryWhite border-6'>
         <svg
           width='21'
@@ -27,7 +20,7 @@ const Search = () => {
         </svg>
 
         <input
-          className='w-full font-mono pl-12 pr-4 py-2 text-gray-300 bg-transparent focus:outline-none focus:shadow-outline placeholder-gray-300 text-sm sm:text-base'
+          className='font-mono pl-12 pr-4 py-2 text-gray-300 bg-transparent focus:outline-none focus:shadow-outline placeholder-gray-300 text-sm sm:text-base'
           type='text'
           placeholder='Search...'
         />
