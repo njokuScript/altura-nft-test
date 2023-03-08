@@ -7,7 +7,7 @@ import NFT from './NFT';
 
 function App() {
   return (
-    <div className='bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
+    <div className='bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen overflow-hidden'>
       <Navbar />
       <div className='p-6 lg:py-6 lg:px-16'>
         <div className='font-mono text-2xl font-bold text-white'>

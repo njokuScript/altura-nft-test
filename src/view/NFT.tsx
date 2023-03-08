@@ -73,7 +73,7 @@ const NFT = () => {
   return (
     <div
       ref={containerRef}
-      className=' bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
+      className=' bg-primary scrollbar-track-primary w-screen h-screen'>
       <div className='p-8 lg:py-6 lg:px-16'>
         <div className='font-mono font-bold text-white pt-10 text-xl'>
           Featured Collections - {collection?.collectionName}
