@@ -67,12 +67,15 @@ const NFT = () => {
     if (nfts) {
       setCursor(nfts?.cursor);
     }
+  }, []);
+
+  React.useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [cursor]);
 
   return (
     <div className=' bg-primary scrollbar-track-primary w-screen h-screen'>
