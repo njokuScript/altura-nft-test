@@ -2,7 +2,7 @@
 
   ## .env file setup
 
-Copy their content and create new `.env` file in the root directory.
+Copy the content of .env.example and create new `.env` file in the root directory.
 
 Get your Altura API Key at [https://developer.alturanft.com/](https://https://developer.alturanft.com//)
 
