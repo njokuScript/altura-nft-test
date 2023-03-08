@@ -13,6 +13,10 @@ import { INFT } from '../store/types';
 const NFT = () => {
   const { collection, error, nfts, loading, getNfts, getCollection } = useNFT();
 
+  const [cursor, setCursor] = React.useState<string | undefined>('');
+
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
   const [selectedItems, setSelectedItems] = React.useState<INFT>({
     id: 0,
     name: '',
@@ -43,10 +47,33 @@ const NFT = () => {
   React.useEffect(() => {
     getCollection('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B');
     getNfts('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B');
+    if (nfts) {
+      setCursor(nfts?.cursor);
+    }
+  }, [cursor]);
+
+  function handleScroll() {
+    const container = containerRef.current;
+    if (
+      container &&
+      container.scrollHeight - container.scrollTop === container.clientHeight
+    ) {
+      setCursor(cursor);
+    }
+  }
+
+  React.useEffect(() => {
+    const container = containerRef.current;
+    container?.addEventListener('scroll', handleScroll);
+    return () => {
+      container?.removeEventListener('scroll', handleScroll);
+    };
   }, []);
-  console.log(nfts, 'NFT');
+
   return (
-    <div className=' bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
+    <div
+      ref={containerRef}
+      className=' bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
       <div className='p-8 lg:py-6 lg:px-16'>
         <div className='font-mono font-bold text-white pt-10 text-xl'>
           Featured Collections - {collection?.collectionName}
@@ -56,9 +83,7 @@ const NFT = () => {
         <>
           {nfts?.data?.map((nft: any) => {
             return loading.NFTs ? (
-              <div
-                className='relative my-4 bg-primaryWhite rounded-lg h-96 w-auto overflow-hidden shadow animate-pulse'
-                key={nft?.id}>
+              <div className='relative my-4 bg-primaryWhite rounded-lg h-96 w-auto overflow-hidden shadow animate-pulse'>
                 <div className='w-full h-60 bg-primaryWhite inset-0' />
                 <div className='px-4'>
                   <div className='h-2.5 rounded-full bg-gray-600 w-24 mb-2.5 mt-10'></div>
@@ -191,7 +216,7 @@ const NFT = () => {
             <Button
               route={`https://opensea.io/assets/ethereum/${collection?.collectionAddress}/${selectedItems?.id}`}
               className='justify-center flex mt-8 mb-5 md:mb-5'
-              buttonText='View on OpenSea'
+              buttonText='Purchase NFT'
             />
           </div>
         </div>

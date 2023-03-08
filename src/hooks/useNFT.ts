@@ -41,35 +41,45 @@ export const useNFT = () => {
       });
     }
   });
-  const getNfts = activate('NFTs', async (address: string) => {
-    try {
-      const response = await Blockspan.get(
-        `/nfts/contract/${address}?chain=eth-main`
-      );
+  const getNfts = activate(
+    'NFTs',
+    async (address: string, cursor?: string, size?: Number) => {
+      try {
+        let response;
+        if (cursor) {
+          response = await Blockspan.get(
+            `/nfts/contract/${address}?chain=eth-main&cursor=${cursor}&page_size=${size}`
+          );
+        } else {
+          response = await Blockspan.get(
+            `/nfts/contract/${address}?chain=eth-main`
+          );
+        }
 
-      const NftResponse = {
-        cursor: response.data.cursor,
-        data: [],
-      };
+        const NftResponse = {
+          cursor: response.data.cursor,
+          data: [],
+        };
 
-      console.log(NftResponse, 'initial');
-      // filter out NFTs with no price
-      const filteredResponse = response.data.results.filter(
-        (nft: any) => nft.recent_price !== null
-      );
-      console.log(filteredResponse, 'filtered response');
+        console.log(NftResponse, 'initial');
+        // filter out NFTs with no price
+        const filteredResponse = response.data.results.filter(
+          (nft: any) => nft.recent_price !== null
+        );
+        console.log(filteredResponse, 'filtered response');
 
-      NftResponse.data = filteredResponse;
+        NftResponse.data = filteredResponse;
 
-      dispatch({ type: actions.GET_NFTS, payload: NftResponse });
-    } catch (err: any) {
-      handleError(err);
-      dispatch({
-        type: actions.NFT_ERROR,
-        payload: err?.response?.data?.errors[0]?.msg,
-      });
+        dispatch({ type: actions.GET_NFTS, payload: NftResponse });
+      } catch (err: any) {
+        handleError(err);
+        dispatch({
+          type: actions.NFT_ERROR,
+          payload: err?.response?.data?.errors[0]?.msg,
+        });
+      }
     }
-  });
+  );
 
   // Clear Errors
   const clearErrors = () => dispatch({ type: actions.CLEAR_ERRORS });
