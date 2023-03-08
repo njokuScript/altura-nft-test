@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 export const truncateAddress = (value: string, strLen = 8) => {
   if (value.length <= strLen) {
@@ -33,3 +34,11 @@ export const handleError = (
   const message = err?.response || defaultMessage;
   toast.error(message);
 };
+
+export const AlturaApi = axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+    ALTURA_API_KEY: process.env.REACT_APP_API_KEY,
+  },
+});
