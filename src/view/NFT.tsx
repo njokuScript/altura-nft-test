@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { INFT } from '../store/types';
 
 const NFT = () => {
-  const { collection, error, nfts, loading, getNfts, getCollection } = useNFT();
+  const { collection, nfts, loading, getNfts, getCollection } = useNFT();
 
   const [cursor, setCursor] = React.useState<string | undefined>('');
 
