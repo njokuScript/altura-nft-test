@@ -1,12 +1,12 @@
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-export const truncateAddress = (value: string, strLen = 8) => {
-  if (value.length <= strLen) {
+export const truncateAddress = (value: any, strLen = 8) => {
+  if (value?.length <= strLen) {
     return value;
   }
 
-  return `${value.substring(0, 4)}...${value.substring(value.length - 4)}`;
+  return `${value?.substring(0, 4)}...${value?.substring(value?.length - 4)}`;
 };
 
 export const attachLoader =
@@ -48,3 +48,14 @@ export const Blockspan = axios.create({
     'x-api-key': process.env.REACT_APP_BLOCKSPAN_API_KEY,
   },
 });
+
+// format amount
+
+export const formatAmount = (value: number | string) => {
+  let amount;
+  if (typeof value === 'string') {
+    amount = Number(value);
+  }
+
+  return amount?.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+};

@@ -1,7 +1,7 @@
 import { actions, useDispatch, useStore } from '../store/NFTStore';
 import React from 'react';
-import { AlturaApi, attachLoader, Blockspan, handleError } from '../libs/utils';
-import { ILoading } from '../store/types';
+import { attachLoader, Blockspan, handleError } from '../libs/utils';
+import type { ILoading } from '../store/types';
 
 export const useNFT = () => {
   const store = useStore();
@@ -25,10 +25,14 @@ export const useNFT = () => {
       const response = await Blockspan.get(
         `/collections/contract/${address}?chain=eth-main`
       );
-      console.log(response.data);
-
-      dispatch({ type: actions.GET_COLLECTION, payload: response.data });
-      console.log(await store.collection, 'collection from store');
+      const exchange_data = response.data.exchange_data[1];
+      const responseObj = {
+        collectionName: exchange_data.name,
+        collectionDescription: exchange_data.description,
+        collectionImage: exchange_data.image_url,
+        collectionAddress: address,
+      };
+      dispatch({ type: actions.GET_COLLECTION, payload: responseObj });
     } catch (err: any) {
       handleError(err);
       dispatch({
@@ -39,10 +43,31 @@ export const useNFT = () => {
   });
   const getNfts = activate('NFTs', async (address: string) => {
     try {
-      const response = await Blockspan.get(`/collection/${address}`);
-      dispatch({ type: actions.GET_NFTS, payload: response.data });
+      const response = await Blockspan.get(
+        `/nfts/contract/${address}?chain=eth-main`
+      );
+
+      const NftResponse = {
+        cursor: response.data.cursor,
+        data: [],
+      };
+
+      console.log(NftResponse, 'initial');
+      // filter out NFTs with no price
+      const filteredResponse = response.data.results.filter(
+        (nft: any) => nft.recent_price !== null
+      );
+      console.log(filteredResponse, 'filtered response');
+
+      NftResponse.data = filteredResponse;
+
+      dispatch({ type: actions.GET_NFTS, payload: NftResponse });
     } catch (err: any) {
       handleError(err);
+      dispatch({
+        type: actions.NFT_ERROR,
+        payload: err?.response?.data?.errors[0]?.msg,
+      });
     }
   });
 

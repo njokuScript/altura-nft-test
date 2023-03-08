@@ -32,7 +32,7 @@ const Cards = ({
           {nftName}
         </div>
         <div className='flex justify-between items-center pt-12'>
-          <div className='font-mono text-xs font-semibold text-orange-200 pr-5'>
+          <div className='font-mono text-xs font-semibold text-orange-200 '>
             {amount}
           </div>
           <div className='flex items-center'>
@@ -41,7 +41,7 @@ const Cards = ({
               src={collectionImage}
               alt='Logo'
             />
-            <div className='font-mono text-xs text-white pl-2'>
+            <div className='font-mono text-xs text-white pl-2 w-24'>
               {collectionName}
             </div>
           </div>

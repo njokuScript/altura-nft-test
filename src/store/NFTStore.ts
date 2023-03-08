@@ -1,29 +1,32 @@
 import { makeStore } from './makeStore';
-import { IAction, INFTState } from './types';
+import type { IAction, INFTState, ICollectionResponse } from './types';
 
 const initial_state: INFTState = {
-  collection: {},
-  NFTs: {},
+  collection: {} as ICollectionResponse,
+  NFTs: {
+    cursor: '',
+    data: [],
+  },
   error: null,
 };
 
-const reducer = async (state: INFTState = initial_state, action: IAction) => {
+const reducer = (state: INFTState = initial_state, action: IAction) => {
   switch (action.type) {
     case actions.GET_NFTS:
+      const NftObj = { ...state.NFTs, ...action.payload };
+      console.log(NftObj, 'nft from reducer');
       return {
         ...state,
         loading: false,
-        nfts: action.payload,
+        NFTs: NftObj,
         error: null,
       };
     case actions.GET_COLLECTION:
-      console.log('hghggghh', { ...action.payload });
-      const obj = { ...state.collection, ...action.payload };
-
+      const CollectionObj = { ...state.collection, ...action.payload };
       return {
         ...state,
         loading: false,
-        collection: obj,
+        collection: CollectionObj,
         error: null,
       };
     case actions.NFT_ERROR:
