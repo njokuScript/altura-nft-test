@@ -15,8 +15,6 @@ const NFT = () => {
 
   const [cursor, setCursor] = React.useState<string | undefined>('');
 
-  const containerRef = React.useRef<HTMLDivElement>(null);
-
   const [selectedItems, setSelectedItems] = React.useState<INFT>({
     id: 0,
     name: '',
@@ -41,39 +39,43 @@ const NFT = () => {
     setSelectedItems(newNftData);
     setIsOpen(!modalIsOpen);
   };
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(!modalIsOpen);
-  }
+  };
+
+  const loadMoreNft = async () => {
+    // Fetch more data here
+    const data = await getNfts(
+      '0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B',
+      cursor
+    );
+    setCursor(data?.cursor);
+  };
+
+  const handleScroll = async () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+
+    if (windowHeight + scrollTop >= documentHeight) {
+      loadMoreNft();
+    }
+  };
   React.useEffect(() => {
     getCollection('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B');
     getNfts('0x49cF6f5d44E70224e2E23fDcdd2C053F30aDA28B');
     if (nfts) {
       setCursor(nfts?.cursor);
     }
-  }, [cursor]);
+    window.addEventListener('scroll', handleScroll);
 
-  function handleScroll() {
-    const container = containerRef.current;
-    if (
-      container &&
-      container.scrollHeight - container.scrollTop === container.clientHeight
-    ) {
-      setCursor(cursor);
-    }
-  }
-
-  React.useEffect(() => {
-    const container = containerRef.current;
-    container?.addEventListener('scroll', handleScroll);
     return () => {
-      container?.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className=' bg-primary scrollbar-track-primary w-screen h-screen'>
+    <div className=' bg-primary scrollbar-track-primary w-screen h-screen'>
       <div className='p-8 lg:py-6 lg:px-16'>
         <div className='font-mono font-bold text-white pt-10 text-xl'>
           Featured Collections - {collection?.collectionName}

@@ -14,7 +14,6 @@ const reducer = (state: INFTState = initial_state, action: IAction) => {
   switch (action.type) {
     case actions.GET_NFTS:
       const NftObj = { ...state.NFTs, ...action.payload };
-      console.log(NftObj, 'nft from reducer');
       return {
         ...state,
         loading: false,

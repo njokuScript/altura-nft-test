@@ -32,7 +32,6 @@ export const handleError = (
   defaultMessage = 'Something went wrong!'
 ) => {
   const message = err?.response?.data?.errors[0]?.msg || defaultMessage;
-  console.log(err?.response?.data?.errors[0]?.msg, 'error');
   toast.error(message);
 };
 

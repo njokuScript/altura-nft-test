@@ -60,13 +60,10 @@ export const useNFT = () => {
           cursor: response.data.cursor,
           data: [],
         };
-
-        console.log(NftResponse, 'initial');
         // filter out NFTs with no price
         const filteredResponse = response.data.results.filter(
           (nft: any) => nft.recent_price !== null
         );
-        console.log(filteredResponse, 'filtered response');
 
         NftResponse.data = filteredResponse;
 
