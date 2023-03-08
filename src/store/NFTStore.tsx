@@ -1,22 +1,19 @@
 import { makeStore } from './makeStore';
-import { ICollectionState } from './types';
+import { INFTState } from './types';
 
-const initial_state: ICollectionState = {
+const initial_state: INFTState = {
   collection: {},
-  collections: [],
+  NFTs: {},
   error: null,
 };
 
-const reducer = async (
-  state: ICollectionState = initial_state,
-  action: any
-) => {
+const reducer = async (state: INFTState = initial_state, action: any) => {
   switch (action.type) {
-    case actions.GET_COLLECTIONS:
+    case actions.GET_NFTS:
       return {
         ...state,
         loading: false,
-        collections: action.payload,
+        nfts: action.payload,
         error: null,
       };
     case actions.GET_COLLECTION:
@@ -26,15 +23,10 @@ const reducer = async (
         collection: action.payload,
         error: null,
       };
-    case actions.GET_COLLECTION_ERROR:
+    case actions.NFT_ERROR:
       return {
         ...state,
         error: action.payload,
-      };
-    case actions.CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
       };
     default:
       return state;
@@ -46,8 +38,7 @@ export const { Provider, useStore, useDispatch } = makeStore(
   reducer
 );
 export const actions = {
-  GET_COLLECTIONS: 'GET_COLLECTIONS',
+  GET_NFTS: 'GET_NFTS',
   GET_COLLECTION: 'GET_COLLECTION',
-  GET_COLLECTION_ERROR: 'GET_COLLECTION_ERROR',
-  CLEAR_ERRORS: 'CLEAR_ERRORS',
+  NFT_ERROR: 'NFT_ERROR',
 };

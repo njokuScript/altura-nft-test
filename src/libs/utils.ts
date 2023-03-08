@@ -31,14 +31,20 @@ export const handleError = (
   err: any,
   defaultMessage = 'Something went wrong!'
 ) => {
-  const message = err?.response || defaultMessage;
+  const message = err?.response?.data?.errors[0]?.msg || defaultMessage;
+  console.log(err?.response?.data?.errors[0]?.msg, 'error');
   toast.error(message);
 };
 
 export const AlturaApi = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
     ALTURA_API_KEY: process.env.REACT_APP_API_KEY,
+  },
+});
+export const Blockspan = axios.create({
+  baseURL: process.env.REACT_APP_BLOCKSPAN_API_BASE_URL,
+  headers: {
+    'x-api-key': process.env.REACT_APP_BLOCKSPAN_API_KEY,
   },
 });

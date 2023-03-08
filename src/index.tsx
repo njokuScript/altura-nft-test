@@ -3,16 +3,39 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './view/Home';
 import reportWebVitals from './reportWebVitals';
-import { Provider as CollectionProvider } from './store/CollectionStore';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider as NFTProvider } from './store/NFTStore';
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <CollectionProvider>
-      <App />
-    </CollectionProvider>
+    <NFTProvider>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position={toast.POSITION.TOP_RIGHT}
+        autoClose={3000}
+        theme='colored'
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        transition={Slide}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+      />
+    </NFTProvider>
   </React.StrictMode>
 );
 

@@ -1,11 +1,10 @@
-export const GET_COLLECTIONS = 'GET_COLLECTIONS';
+export const GET_NFTS = 'GET_NFTS';
 export const GET_COLLECTION = 'GET_COLLECTION';
 
-export const COLLECTION_ERROR = 'COLLECTION_ERROR';
-export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const NFT_ERROR = 'NFT_ERROR';
 
-export interface ICollectionState {
+export interface INFTState {
   collection?: object;
-  collections?: [];
+  NFTs?: object;
   error: string | null;
 }

@@ -7,13 +7,14 @@ import NFT from './NFT';
 
 function App() {
   return (
-    <div className='bg-primary fixed overflow-y-auto scrollbar-track-primary w-screen h-screen'>
+    <div className='bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
       <Navbar />
       <div className='p-6 lg:py-6 lg:px-16'>
         <div className='font-mono text-2xl font-bold text-white'>
           Discover, collect, and sell extraordinary NFTs
         </div>
       </div>
+
       <div className='md:bg-primaryWhite md:w-auto md:h-auto md:mx-16 md:rounded-lg md:bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 md:flex justify-between'>
         <div className='md:flex'>
           <img

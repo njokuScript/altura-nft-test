@@ -8,6 +8,7 @@ import Metadata from '../assets/images/metadata.png';
 import Modal from '../components/Modal';
 import { truncateAddress } from '../libs/utils';
 import Button from '../components/Button';
+import { useNFT } from '../hooks/useNFT';
 
 const detailsData = [
   {
@@ -23,11 +24,16 @@ const detailsData = [
 ];
 
 const NFT = () => {
+  const { collection, error, nfts, loading, getNfts, getCollection } = useNFT();
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   function toggleModal() {
     setIsOpen(!modalIsOpen);
   }
-
+  React.useEffect(() => {
+    getCollection('0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D');
+  }, []);
+  console.log(collection, error);
   return (
     <div className=' bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
       <div className='p-8 lg:py-6 lg:px-16'>
@@ -35,7 +41,7 @@ const NFT = () => {
           Featured Collections - The Return of Sumarai
         </div>
       </div>
-      <div className='grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6 h-auto p-8 lg:py-6 lg:px-16'>
+      <div className='grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 h-auto p-8 lg:py-6 lg:px-16'>
         <Cards
           onclick={toggleModal}
           collectionImage={Logo}
