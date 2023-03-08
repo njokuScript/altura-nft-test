@@ -1,5 +1,13 @@
 # Altura NFT Test App
 
+  ## .env file setup
+
+Copy their content and create new `.env` file in the root directory.
+
+Get your Altura API Key at [https://developer.alturanft.com/](https://https://developer.alturanft.com//)
+
+Get your Blockspan API Key at [https://blockspan.com/](https://https://blockspan.com//)
+
 ## Available Scripts
 
 In the project directory, you can run:
