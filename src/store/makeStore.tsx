@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react';
+import { IAction, INFTState } from './types';
 
 export const makeStore = (
-  initial_state: object,
-  reducer: (state: any, action: any) => any
+  initial_state: INFTState,
+  reducer: (state: INFTState, action: IAction) => any
 ) => {
-  const StoreCtx = React.createContext<any>(initial_state);
-  const DispatchCtx = React.createContext<React.Dispatch<any>>(() => null);
+  const StoreCtx = React.createContext<INFTState>(initial_state);
+  const DispatchCtx = React.createContext<React.Dispatch<any>>(() => {});
 
   const Provider = ({ children }: { children: ReactNode }) => {
     const [store, dispatch] = React.useReducer(reducer, initial_state);
@@ -19,6 +20,10 @@ export const makeStore = (
 
   const useStore = () => React.useContext(StoreCtx);
   const useDispatch = () => React.useContext(DispatchCtx);
+
+  if (!useStore || !useDispatch) {
+    throw new Error('can not call context outside the provider');
+  }
 
   return { useDispatch, useStore, Provider, Consumer: StoreCtx.Consumer };
 };

@@ -1,40 +1,53 @@
 import { actions, useDispatch, useStore } from '../store/NFTStore';
 import React from 'react';
 import { AlturaApi, attachLoader, Blockspan, handleError } from '../libs/utils';
+import { ILoading } from '../store/types';
 
 export const useNFT = () => {
   const store = useStore();
   const dispatch = useDispatch();
-  const [loading, setLoading] = React.useState({});
+
+  const initialLoading = {
+    collection: false,
+    NFTs: false,
+  };
+
+  const [loading, setLoading] = React.useState<ILoading>(initialLoading);
   const activate = attachLoader(setLoading);
 
   /**
    * @dev Gets collection data for an address
    * @param address Address of the specified collection
-   * @returns Transaction response
+   * @returns Collection response
    */
-  const getCollection = activate('collections', async (address: string) => {
-    console.log('get collections');
-    console.log(process.env.REACT_APP_BLOCKSPAN_API_BASE_URL, 'api url');
+  const getCollection = activate('collection', async (address: string) => {
     try {
       const response = await Blockspan.get(
-        `/collections/contract/${address}?chain=eth=main`
+        `/collections/contract/${address}?chain=eth-main`
       );
-      console.log(response);
+      console.log(response.data);
 
       dispatch({ type: actions.GET_COLLECTION, payload: response.data });
-    } catch (err) {
+      console.log(await store.collection, 'collection from store');
+    } catch (err: any) {
       handleError(err);
+      dispatch({
+        type: actions.NFT_ERROR,
+        payload: err?.response?.data?.errors[0]?.msg,
+      });
     }
   });
-  const getNfts = activate('collection', async (address: string) => {
+  const getNfts = activate('NFTs', async (address: string) => {
     try {
       const response = await Blockspan.get(`/collection/${address}`);
       dispatch({ type: actions.GET_NFTS, payload: response.data });
-    } catch (err) {
+    } catch (err: any) {
       handleError(err);
     }
   });
+
+  // Clear Errors
+  const clearErrors = () => dispatch({ type: actions.CLEAR_ERRORS });
   return {
     collection: store.collection,
     nfts: store.NFTs,
@@ -42,5 +55,6 @@ export const useNFT = () => {
     getCollection,
     getNfts,
     loading: loading,
+    clearErrors,
   };
 };

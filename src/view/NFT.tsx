@@ -30,10 +30,10 @@ const NFT = () => {
   function toggleModal() {
     setIsOpen(!modalIsOpen);
   }
-  React.useEffect(() => {
+  React.useMemo(() => {
     getCollection('0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D');
   }, []);
-  console.log(collection, error);
+  console.log(collection, error, loading.collection);
   return (
     <div className=' bg-primary overflow-y-auto scrollbar-track-primary w-screen h-screen'>
       <div className='p-8 lg:py-6 lg:px-16'>
@@ -42,35 +42,55 @@ const NFT = () => {
         </div>
       </div>
       <div className='grid grid-cols-1 gap-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 h-auto p-8 lg:py-6 lg:px-16'>
-        <Cards
-          onclick={toggleModal}
-          collectionImage={Logo}
-          image={DummyNft2}
-          collectionName='The Hatchable'
-          nftName='Altura Fox - Legendary'
-          amount='0.1 BNB'
-        />
-        <Cards
-          image={DummyNft}
-          collectionName='The Hatchable'
-          collectionImage={Logo}
-          nftName='Altura Fox - Legendary'
-          amount='0.1 BNB'
-        />
-        <Cards
-          image={DummyNft}
-          collectionName='The Hatchable'
-          collectionImage={Logo}
-          nftName='Altura Fox - Legendary'
-          amount='0.1 ETH'
-        />
-        <Cards
-          image={DummyNft}
-          collectionImage={Logo}
-          collectionName=' The Hatchable'
-          nftName='Altura Fox - Legendary'
-          amount='0.1 BNB'
-        />
+        <>
+          {loading.collection ? (
+            <div className='relative my-4 bg-primaryWhite rounded-lg h-96 w-auto overflow-hidden shadow animate-pulse'>
+              <div className='w-full h-60 bg-primaryWhite inset-0' />
+              <div className='px-4'>
+                <div className='h-2.5 rounded-full bg-gray-600 w-24 mb-2.5 mt-10'></div>
+                <div className='flex justify-between items-center pt-6'>
+                  <div className='flex items-center justify-center'>
+                    <div className='h-8 w-8 rounded-full bg-gray-700' />
+                    <div className='h-2.5 rounded-full bg-gray-700 w-24 ml-2'></div>
+                  </div>
+                  <div className='h-2.5  rounded-full bg-gray-700 w-12'></div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <Cards
+                onclick={toggleModal}
+                collectionImage={Logo}
+                image={DummyNft2}
+                collectionName='The Hatchable'
+                nftName='Altura Fox - Legendary'
+                amount='0.1 BNB'
+              />
+              <Cards
+                image={DummyNft}
+                collectionName='The Hatchable'
+                collectionImage={Logo}
+                nftName='Altura Fox - Legendary'
+                amount='0.1 BNB'
+              />
+              <Cards
+                image={DummyNft}
+                collectionName='The Hatchable'
+                collectionImage={Logo}
+                nftName='Altura Fox - Legendary'
+                amount='0.1 ETH'
+              />
+              <Cards
+                image={DummyNft}
+                collectionImage={Logo}
+                collectionName=' The Hatchable'
+                nftName='Altura Fox - Legendary'
+                amount='0.1 BNB'
+              />
+            </>
+          )}
+        </>
       </div>
       <Modal onClose={toggleModal} isOpen={modalIsOpen}>
         <div className='lg:my-8'>
@@ -166,10 +186,10 @@ const NFT = () => {
               </div>
             </div>
           </div>
-          <div className='md:hidden mt-12 '>
+          <div className='md:hidden mx-6'>
             <Button
               route='/'
-              className='justify-center flex md:mb-5'
+              className='justify-center flex mt-8 mb-5 md:mb-5'
               buttonText='Purchase NFT'
             />
           </div>

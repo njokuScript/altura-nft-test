@@ -1,5 +1,5 @@
 import { makeStore } from './makeStore';
-import { INFTState } from './types';
+import { IAction, INFTState } from './types';
 
 const initial_state: INFTState = {
   collection: {},
@@ -7,7 +7,7 @@ const initial_state: INFTState = {
   error: null,
 };
 
-const reducer = async (state: INFTState = initial_state, action: any) => {
+const reducer = async (state: INFTState = initial_state, action: IAction) => {
   switch (action.type) {
     case actions.GET_NFTS:
       return {
@@ -17,16 +17,24 @@ const reducer = async (state: INFTState = initial_state, action: any) => {
         error: null,
       };
     case actions.GET_COLLECTION:
+      console.log('hghggghh', { ...action.payload });
+      const obj = { ...state.collection, ...action.payload };
+
       return {
         ...state,
         loading: false,
-        collection: action.payload,
+        collection: obj,
         error: null,
       };
     case actions.NFT_ERROR:
       return {
         ...state,
         error: action.payload,
+      };
+    case actions.CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
@@ -41,4 +49,5 @@ export const actions = {
   GET_NFTS: 'GET_NFTS',
   GET_COLLECTION: 'GET_COLLECTION',
   NFT_ERROR: 'NFT_ERROR',
+  CLEAR_ERRORS: 'CLEAR_ERRORS',
 };
